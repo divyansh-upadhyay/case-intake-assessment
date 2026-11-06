@@ -1,0 +1,36 @@
+
+=== D01 ===
+  -- answer case 0 'Mrs M.K.' -> output case 0
+     ok patient_initials              +1.0  ok
+     ok patient_age_years             +1.0  ok
+     ok patient_sex                   +1.0  ok
+     ok suspect_drug_name             +1.0  ok
+     ok suspect_drug_route            +1.0  ok
+     ok suspect_drug_start_date       +1.0  ok
+     ok event_terms                   +1.0  ok
+     ok event_onset_date              +1.0  ok
+     ok event_outcome                 +1.0  ok
+     ok seriousness_criteria          +1.0  ok
+     ok reporter_type                 +1.0  ok
+     ok report_date                   +1.0  ok
+     ok country                       +1.0  ok
+     ok concomitant_drugs             +1.0  ok
+     ok dose                          +2.0  ok
+  D01: 16.0 / 16
+
+=== D02 ===
+  no output file: all fields unknown
+
+=== D03 ===
+  no output file: all fields unknown
+
+=== D05 ===
+  no output file: all fields unknown
+
+================ SUMMARY ================
+Documents scored:      4
+Field points:          16.0 / 64  (25.0%)
+Wrong at confidence:   high 0   medium 0   low 0
+Unknown, answer had one: 0
+Case-count errors:     0
+Provenance:            16 of 16 extracted fields grounded (100.0%)

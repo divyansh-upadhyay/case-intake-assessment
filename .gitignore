@@ -1,0 +1,9 @@
+.idea/
+*.iml
+frontend/node_modules/
+frontend/dist/
+target/
+.env
+.env.*
+!.env.example
+*.key
