@@ -110,16 +110,34 @@
         } ]
       },
       "reporter_type" : {
-        "status" : "unknown",
-        "note" : "Model did not return this field"
+        "status" : "extracted",
+        "value" : "nurse",
+        "confidence" : "medium",
+        "provenance" : [ {
+          "quote" : "Reporter: Sarah Ellison, Advanced Nurse Practitioner (independent prescriber)",
+          "start" : 174,
+          "end" : 251
+        } ]
       },
       "report_date" : {
-        "status" : "unknown",
-        "note" : "Model did not return this field"
+        "status" : "extracted",
+        "value" : "2026-05-15",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "\nReport completed: 15/05/2026 (15 May 2026)",
+          "start" : 130,
+          "end" : 173
+        } ]
       },
       "country" : {
-        "status" : "unknown",
-        "note" : "Model did not return this field"
+        "status" : "extracted",
+        "value" : "GB",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Stockport, Greater Manchester, United Kingdom\n",
+          "start" : 84,
+          "end" : 130
+        } ]
       },
       "concomitant_drugs" : {
         "status" : "unknown",

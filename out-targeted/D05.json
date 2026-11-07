@@ -92,12 +92,24 @@
         "note" : "Value failed catalog validation"
       },
       "reporter_type" : {
-        "status" : "unknown",
-        "note" : "Model did not return this field"
+        "status" : "extracted",
+        "value" : "physician",
+        "confidence" : "medium",
+        "provenance" : [ {
+          "quote" : "Reporting clinician: Dr Owen Faulkner, Consultant Psychiatrist",
+          "start" : 186,
+          "end" : 248
+        } ]
       },
       "report_date" : {
-        "status" : "unknown",
-        "note" : "Model did not return this field"
+        "status" : "extracted",
+        "value" : "2026-04-11",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "\nReport date: 11 April 2026",
+          "start" : 158,
+          "end" : 185
+        } ]
       },
       "country" : {
         "status" : "unknown",

@@ -31,6 +31,33 @@ public class TargetedExtraction {
             "(?im)^\\s*Treatment started:\\s*(\\d{2}/\\d{2}/\\d{4})\\s*$"
     );
 
+
+    private static final Pattern COUNTRY = Pattern.compile(
+            "(?im)^\\s*(?:Country:\\s*|[^\\r\\n]*,\\s*)" +
+                    "(Ireland|United Kingdom|Australia)\\s*$"
+    );
+
+    private static final Pattern REPORT_DATE = Pattern.compile(
+            "(?im)^\\s*(?:Report date|Report prepared|Report completed):\\s*" +
+            "(\\d{1,2}\\s+[A-Za-z]+\\s+\\d{4}|\\d{2}/\\d{2}/\\d{4})" +
+            "(?:\\s*\\([^\\r\\n]*\\))?\\s*$"
+    );
+
+    private static final Pattern REPORTER_NURSE = Pattern.compile(
+            "(?im)^\\s*Reporter:\\s*[^\\r\\n]*\\b(?:Nurse Practitioner|Nurse)\\b[^\\r\\n]*$"
+    );
+
+    private static final Pattern REPORTER_PHYSICIAN = Pattern.compile(
+            "(?im)^\\s*(?:Reporting clinician|Reporter):\\s*" +
+            "(?:Dr\\.?\\s+)[^\\r\\n]*$"
+    );
+
+    private static final DateTimeFormatter LONG_DATE_FORMAT =
+            DateTimeFormatter.ofPattern(
+                    "d MMMM uuuu",
+                    java.util.Locale.ENGLISH
+            ).withResolverStyle(ResolverStyle.STRICT);
+
     private static final DateTimeFormatter DATE_FORMAT =
             DateTimeFormatter.ofPattern("dd/MM/uuuu")
                     .withResolverStyle(ResolverStyle.STRICT);
@@ -71,10 +98,26 @@ public class TargetedExtraction {
 
         JsonNode cases = output.path("cases");
 
-        if (!cases.isArray() || cases.size() != 1) {
+        if (!cases.isArray()) {
             throw new IllegalStateException(
-                    "Targeted extraction currently supports exactly one case"
+                    "Invalid extraction output: cases must be an array"
             );
+        }
+
+        if (cases.size() != 1) {
+            Path outputDir = Path.of("out-targeted");
+            Files.createDirectories(outputDir);
+
+            Path resultPath = outputDir.resolve(documentId + ".json");
+
+            MAPPER.writerWithDefaultPrettyPrinter()
+                    .writeValue(resultPath.toFile(), output);
+
+            System.out.println(
+                    "Skipping targeted recovery: found "
+                    + cases.size() + " cases"
+            );
+            return;
         }
 
         ObjectNode fields = (ObjectNode) cases.get(0).path("fields");
@@ -106,6 +149,31 @@ public class TargetedExtraction {
                 START_DATE,
                 document,
                 "date"
+        );
+
+
+        recovered += recover(
+                fields,
+                allowedFields,
+                "country",
+                COUNTRY,
+                document,
+                "country"
+        );
+
+        recovered += recover(
+                fields,
+                allowedFields,
+                "report_date",
+                REPORT_DATE,
+                document,
+                "report_date"
+        );
+
+        recovered += recoverReporter(
+                fields,
+                allowedFields,
+                document
         );
 
         Path outputDir = Path.of("out-targeted");
@@ -191,6 +259,34 @@ public class TargetedExtraction {
                     );
                 }
 
+
+                case "country" -> {
+                    String code = switch (
+                            raw.trim().toLowerCase(java.util.Locale.ROOT)
+                    ) {
+                        case "ireland" -> "IE";
+                        case "united kingdom", "uk" -> "GB";
+                        case "australia" -> "AU";
+                        default -> null;
+                    };
+
+                    if (code == null) {
+                        return 0;
+                    }
+
+                    candidate.put("value", code);
+                }
+
+                case "report_date" -> {
+                    String cleaned = raw.trim();
+
+                    LocalDate date = cleaned.contains("/")
+                            ? LocalDate.parse(cleaned, DATE_FORMAT)
+                            : LocalDate.parse(cleaned, LONG_DATE_FORMAT);
+
+                    candidate.put("value", date.toString());
+                }
+
                 default -> {
                     return 0;
                 }
@@ -226,6 +322,68 @@ public class TargetedExtraction {
         System.out.println(
                 "Recovered: " + fieldId
                 + " = " + candidate.path("value")
+        );
+
+        return 1;
+    }
+
+    private static int recoverReporter(
+            ObjectNode fields,
+            Set<String> allowedFields,
+            String document
+    ) {
+        String fieldId = "reporter_type";
+
+        if (!allowedFields.contains(fieldId)) {
+            return 0;
+        }
+
+        if (!"unknown".equals(
+                fields.path(fieldId).path("status").asText()
+        )) {
+            return 0;
+        }
+
+        Matcher nurse = REPORTER_NURSE.matcher(document);
+        Matcher physician = REPORTER_PHYSICIAN.matcher(document);
+
+        boolean nurseFound = nurse.find();
+        boolean physicianFound = physician.find();
+
+        // Reject ambiguous reporter evidence.
+        if (nurseFound == physicianFound) {
+            return 0;
+        }
+
+        Matcher match = nurseFound ? nurse : physician;
+        String value = nurseFound ? "nurse" : "physician";
+
+        int start = match.start();
+        int end = match.end();
+
+        // Reject multiple matching reporter lines.
+        if (match.find()) {
+            return 0;
+        }
+
+        ObjectNode candidate = MAPPER.createObjectNode();
+        candidate.put("status", "extracted");
+        candidate.put("value", value);
+        candidate.put("confidence", "medium");
+
+        ObjectNode evidence = MAPPER.createObjectNode();
+        evidence.put("quote", document.substring(start, end));
+        evidence.put("start", start);
+        evidence.put("end", end);
+
+        ArrayNode provenance = MAPPER.createArrayNode();
+        provenance.add(evidence);
+
+        candidate.set("provenance", provenance);
+        fields.set(fieldId, candidate);
+
+        System.out.println(
+                "Recovered: " + fieldId + " = " + value
         );
 
         return 1;
