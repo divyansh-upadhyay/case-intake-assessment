@@ -1,208 +1,73 @@
-# Assessment Notes
+# Case Intake — Assessment Notes
 
-## 1. Current Implementation Status
+## 1. Implementation overview
 
-The initial Case Intake application has been developed using Java 21, Spring Boot 3.3.13, React 19, and TypeScript.
+The project implements a Java 21 / Spring Boot 3.3.13 extraction backend and React 19 / TypeScript reviewer. A local Ollama model (`qwen2.5:3b`) returns candidate structured fields. The Java pipeline reads `catalog/field_catalog.json`, normalizes catalog types and codes, validates extracted values and evidence, and writes extraction JSON to `out/`. A separate review API stores human edits in `reviewed-cases/`.
 
-### Completed
+The catalog currently defines 16 fields. The implementation uses a file-based workflow rather than a database.
 
-- Configured the Java 21 development environment on Ubuntu.
-- Successfully compiled the Spring Boot application using Maven.
-- Started the Spring Boot backend on port 8080.
-- Implemented and verified the document REST API.
-- Successfully started the React reviewer interface.
-- Verified TypeScript compilation using `npx tsc --noEmit`.
-- Loaded the field catalog dynamically from `catalog/field_catalog.json`.
-- Confirmed that the catalog contains 16 fields.
-- Displayed the original document text and supplied D01 extraction in the reviewer interface.
-- Implemented an initial `ExtractionValidator` for checking field presence and provenance offsets.
-- Verified the supplied D01 example's provenance using a Python validation script.
-- Implemented an initial `ReplayRunner.java` and `replay.sh`.
-- Successfully replayed the supplied D01 sample extraction.
-- Executed the official assessment checker.
+## 2. Model use and reproducibility
 
-### Pending
+Live extraction uses `OllamaModelClient` with the Ollama generate API. The pipeline stores model-response recordings as `fixtures/DXX.recording.json` for D01–D08.
 
-- Integration with a live LLM provider.
-- Generation of genuine model responses and recorded request/response fixtures.
-- Extraction outputs for D02–D08.
-- Full JSON Schema and catalog-based validation.
-- Complete offline replay of genuine recorded LLM exchanges.
-- Automated backend and frontend tests.
-- Verification of multiple-case handling and no-case documents.
-- Further testing of provenance highlighting.
-- Final extraction accuracy evaluation.
+`./replay.sh` invokes the Java extraction service with `--replay` for each recorded document. It reads the saved response and regenerates `out/DXX.json` without contacting Ollama. All eight documents replayed successfully. SHA-256 hashes of all eight output files matched across two consecutive replay runs.
 
-## 2. Extraction Checker Results
+**Recording limitation:** The current live path may save the base prompt rather than the exact expanded/retry prompt sent to the model. The response is recorded and usable for deterministic replay, but prompt audit fidelity should be improved before claiming exact request reproduction. Original recordings should not be rewritten without a genuine source record.
 
-### Initial Baseline — 6 November 2026
+## 3. Validation and evidence
 
-The official assessment checker was executed using:
+The Java extraction service normalizes common types (including ISO dates and slash-separated dates), checks field values against catalog constraints, and requires source evidence for extracted values. For accepted evidence, it stores the exact matched source substring and Unicode code-point start/end offsets. Fields that fail validation are marked `unknown` with a reason; the pipeline also supports `conflict` status from the model.
+
+The implementation has not been independently verified against the complete supplied JSON Schema or all multiple-case/zero-case scenarios. No claim of full schema conformance is made.
+
+## 4. Latest checker results — 7 November 2026
+
+The targeted extraction output (`out-targeted/`) was reported at **45/64 field points (70.3%)** on four scored documents, with **0 incorrect values**, **19 unknown answer-bearing fields**, **0 case-count errors**, and **43/43 extracted fields grounded in source text (100%)**. The existing Java suite passed **16/16 tests** before the new regression tests were added. The original `out/` pipeline and offline replay may yield different scores; do not conflate them.
+
+Command used for the targeted score:
 
 ```bash
-python3 tools/check.py \
-  --catalog catalog/field_catalog.json \
-  --answers answers \
-  --out out \
-  --docs documents
+python3 tools/check.py --catalog catalog/field_catalog.json --answers answers --out out-targeted --docs documents
 ```
 
-### Results
+## 5. Testing and reviewer workflow
 
-| Metric | Result |
-|---|---|
-| Documents evaluated | 4 |
-| Documents with available outputs | 1 |
-| Total field score | 16.0 / 64 |
-| Accuracy score | 25.0% |
-| D01 score | 16.0 / 16 |
-| D02 | No output file |
-| D03 | No output file |
-| D05 | No output file |
-| Incorrect high-confidence values | 0 |
-| Incorrect medium-confidence values | 0 |
-| Incorrect low-confidence values | 0 |
-| Provenance | 16 of 16 extracted fields grounded (100.0%) |
+- `mvn clean test`: **16 tests passed, zero failures** (7 November 2026).
+- `./replay.sh`: **8/8 documents completed**.
+- React/Vite frontend has started successfully; production build has been reported successful in development.
+- Reviewer API endpoints include catalog, document listing, extracted cases, read review, and save review.
+- Reviewer edits, verification and notes are stored separately from model-generated extraction results.
 
-### Interpretation
+Automated frontend tests are not yet demonstrated; a placeholder `npm test` script is not evidence of coverage. Full end-to-end browser verification remains recommended.
 
-The D01 extraction received full marks against the supplied answer key.
+## 6. Architecture and tradeoffs
 
-However, D01 uses the example extraction supplied with the assessment. It was not generated by a live language model.
+- **Local Ollama:** avoids a paid API dependency but the small model can omit fields or mishandle ambiguity.
+- **Catalog-driven extraction:** field definitions can evolve without hardcoding all field names; end-to-end alternate-catalog behavior needs further testing.
+- **Strict provenance:** unmatched model quotes are rejected rather than silently treated as valid evidence.
+- **File-based outputs:** easy to inspect, replay and review for the exercise; lacks database features for concurrent production workflows.
+- **Offline replay:** enables deterministic review without network or model availability, but depends on retaining genuine recordings and compatible Java validation code.
+- **Human review:** corrections and verification are explicitly separate from raw model output.
 
-Therefore, the current score should not be interpreted as a measure of the extraction pipeline's actual AI accuracy.
+## 7. AI assistance and UI design prompt
 
-The remaining documents have not yet been processed.
+AI assistance was used for architecture planning, code drafting and debugging, test design, UI layout, and documentation. Generated suggestions were reviewed through compilation, tests, replay and checker output; those checks do not establish comprehensive correctness.
 
-## 3. Offline Replay Implementation
-
-An initial replay prototype has been implemented using:
-
-- `ReplayRunner.java`
-- `ReplayModelClient.java`
-- `replay.sh`
-- `fixtures/D01.json`
-
-The replay command is:
-
-```bash
-./replay.sh
-```
-
-### Initial Replay Result
-
-```text
-REPLAYED: D01
-MISSING FIXTURE: D02
-MISSING FIXTURE: D03
-MISSING FIXTURE: D04
-MISSING FIXTURE: D05
-MISSING FIXTURE: D06
-MISSING FIXTURE: D07
-MISSING FIXTURE: D08
-
-Replay completed
-Processed: 1
-Missing fixtures: 7
-```
-
-The current implementation reads an existing sample extraction JSON file and writes it to the output directory.
-
-It does not yet replay genuine recorded LLM request/response exchanges.
-
-The D01 fixture is a supplied example and must not be represented as an actual LLM recording.
-
-The replay implementation currently lacks comprehensive schema validation and reproducibility testing.
-
-## 4. Observations for D04, D06, D07 and D08
-
-These documents have not yet been processed through a live extraction model.
-
-Detailed observations, ambiguous fields, conflicts, missing information and case-count decisions will be documented after extraction and manual review.
-
-No extraction accuracy claims are made for these documents at this stage.
-
-## 5. AI Tools Used
-
-AI assistance was used during development for:
-
-- Generating the initial Spring Boot and React project scaffold.
-- Designing the reviewer dashboard.
-- Planning the extraction architecture.
-- Implementing the initial extraction validator.
-- Implementing the initial offline replay prototype.
-- Troubleshooting Maven dependency resolution and SSL certificate issues.
-- Configuring Java 21 and the development environment.
-- Interpreting assessment checker results.
-- Preparing development documentation.
-
-The implementation is being reviewed and tested incrementally.
-
-No live LLM extraction has been performed yet.
-
-## 6. UI Design Prompt
-
-The following prompt was used to guide the initial UI design:
+The UI design prompt recorded during development was:
 
 > Design a restrained clinical case-review workspace with a dark navy document sidebar, an original plain-text report panel, and a catalog-driven extraction panel. Prioritize readable typography, clear high/medium/low confidence badges, and clickable evidence that highlights the corresponding source quote. Use React 19 and TypeScript.
 
-## 7. Architecture Decisions
+## 8. Known limitations and next work
 
-### Backend
+1. Targeted extraction quality is **70.3%** on the supplied scored set, with no reported incorrect values; results still require human review.
+2. The model omits some catalog fields, including fields present in source documents.
+3. Some model evidence quotes are not exact source substrings, causing valid-looking values to be rejected; evidence matching must remain grounded.
+4. Event lists and contradictory patient values need better handling.
+5. Full JSON Schema validation, multiple/no-case behavior, and custom-catalog replay need explicit tests.
+6. The recorded `prompt` may differ from the actual expanded live prompt; correct this for future recordings.
+7. Automated frontend API integration checks are provided but must be executed against a running backend; browser interaction verification remains incomplete.
+8. The repository contains local backup/experimental directories that should be excluded from a clean submission package, without deleting the original evidence or recordings.
 
-- Java 21 and Spring Boot 3.3.13.
-- File-based storage instead of a database.
-- REST endpoints for catalog and document retrieval.
-- Dynamic field catalog stored in JSON.
-- Model integration abstracted behind the `ModelClient` interface.
+## 9. Submission status
 
-### Frontend
-
-- React 19 with TypeScript.
-- Vite development server.
-- Document navigation through the sidebar.
-- Original document text displayed alongside extracted fields.
-- Field grouping based on catalog sections.
-- Confidence indicators for extracted values.
-
-### Replay
-
-- Java-based replay runner.
-- Shell script entry point.
-- File-based fixtures.
-- Initial support for adding missing catalog fields as unknown.
-
-## 8. Known Limitations
-
-The current implementation is incomplete.
-
-The main limitations are:
-
-1. No live LLM provider integration.
-2. No genuine recorded LLM request/response fixtures.
-3. Only the supplied D01 extraction is available.
-4. No complete extraction outputs for D02–D08.
-5. The current replay implementation copies saved extraction JSON rather than reconstructing outputs from recorded model responses.
-6. Full JSON Schema validation is not yet implemented.
-7. Automated test coverage is incomplete.
-8. Additional UI interaction testing is required.
-9. Reviewer editing controls have not been implemented.
-
-## 9. Next Development Priorities
-
-1. Integrate a live LLM provider.
-2. Implement catalog-driven extraction prompts.
-3. Record genuine model requests and responses.
-4. Validate extracted values and provenance.
-5. Generate outputs for all eight documents.
-6. Implement deterministic offline replay.
-7. Run the official checker and document final results.
-8. Add automated tests.
-9. Verify UI interactions and catalog generality.
-10. Complete the final README and submission review.
-
-## 10. Submission Status
-
-The project is currently under development and is not ready for final submission.
-
-The existing checker results represent an initial baseline using the supplied D01 example, not a completed AI extraction system.
+Core backend, reviewer workflow and offline replay are implemented and usable for a technical walkthrough. Before final submission, verify frontend startup, review persistence, packaging, and the precise assessment requirements. This project is a functional prototype with explicitly documented extraction-quality limitations, not a production-ready clinical system.

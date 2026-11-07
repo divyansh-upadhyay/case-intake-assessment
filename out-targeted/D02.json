@@ -102,12 +102,24 @@
         "note" : "Model did not return this field"
       },
       "report_date" : {
-        "status" : "unknown",
-        "note" : "Model did not return this field"
+        "status" : "extracted",
+        "value" : "2026-02-02",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Report prepared: 2 February 2026",
+          "start" : 210,
+          "end" : 242
+        } ]
       },
       "country" : {
-        "status" : "unknown",
-        "note" : "Model did not return this field"
+        "status" : "extracted",
+        "value" : "IE",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Country: Ireland\n",
+          "start" : 243,
+          "end" : 260
+        } ]
       },
       "concomitant_drugs" : {
         "status" : "extracted",
