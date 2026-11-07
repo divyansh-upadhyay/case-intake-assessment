@@ -6,7 +6,20 @@ type Catalog = { sections:{id:string;label:string}[]; fields:Field[] };
 type Evidence = {quote:string;start:number;end:number};
 type FieldValue = {status:'extracted'|'unknown'|'conflict';value?:unknown;confidence?:'high'|'medium'|'low';provenance?:Evidence[];note?:string};
 type Case = {case_index:number;label?:string;fields:Record<string,FieldValue>};
-type Doc = {id:string;text:string;extraction:null|{cases:Case[];flags?:string[]}};
+type Doc = {
+  id: string;
+  text: string;
+  extraction: null | {
+    cases: Case[];
+    flags?: string[];
+  };
+};
+
+type CaseApiResponse = {
+  documentId: string;
+  sourceText: string;
+  extraction: Doc['extraction'];
+};
 type Summary = {id:string;title:string;caseCount:number;flags:string[]};
 const base='http://localhost:8080';
 function showValue(v:unknown):string {return Array.isArray(v)?v.join(', '):v==null?'—':String(v)}
@@ -14,7 +27,43 @@ function App(){
  const [catalog,setCatalog]=useState<Catalog|null>(null),[docs,setDocs]=useState<Summary[]>([]),[selected,setSelected]=useState('D01');
  const [doc,setDoc]=useState<Doc|null>(null),[caseIndex,setCaseIndex]=useState(0),[fieldId,setFieldId]=useState<string|null>(null),[error,setError]=useState('');
  useEffect(()=>{Promise.all([fetch(base+'/api/catalog').then(r=>r.json()),fetch(base+'/api/documents').then(r=>r.json())]).then(([c,d])=>{setCatalog(c);setDocs(d)}).catch(()=>setError('Cannot reach backend. Start Spring Boot on port 8080.'))},[]);
- useEffect(()=>{setDoc(null);setCaseIndex(0);setFieldId(null);fetch(base+'/api/documents/'+selected).then(r=>{if(!r.ok)throw Error('Document unavailable');return r.json()}).then(setDoc).catch(e=>setError(e.message))},[selected]);
+ useEffect(() => {
+  let cancelled = false;
+
+  setDoc(null);
+  setCaseIndex(0);
+  setFieldId(null);
+  setError('');
+
+  fetch(base + '/api/cases/' + selected)
+    .then(async response => {
+      if (!response.ok) {
+        throw new Error(
+          `Unable to load ${selected}: HTTP ${response.status}`
+        );
+      }
+
+      return response.json() as Promise<CaseApiResponse>;
+    })
+    .then(data => {
+      if (cancelled) return;
+
+      setDoc({
+        id: data.documentId,
+        text: data.sourceText,
+        extraction: data.extraction
+      });
+    })
+    .catch(error => {
+      if (!cancelled) {
+        setError(error.message);
+      }
+    });
+
+  return () => {
+    cancelled = true;
+  };
+}, [selected]);
  const current=doc?.extraction?.cases[caseIndex];
  const active=fieldId&&current?current.fields[fieldId]:null;
  const spans=useMemo(()=>{if(!doc||!active?.provenance?.length)return null;const ev=active.provenance[0];if(ev.start<0||ev.end>Array.from(doc.text).length||ev.start>=ev.end)return null;const chars=Array.from(doc.text);return [chars.slice(0,ev.start).join(''),chars.slice(ev.start,ev.end).join(''),chars.slice(ev.end).join('')]},[doc,active]);
