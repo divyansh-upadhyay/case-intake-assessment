@@ -315,7 +315,7 @@ if (!hasValidCasesArray(modelResponse)) {
         );
     }
 
-    private static ObjectNode validateField(
+    static ObjectNode validateField(
             JsonNode candidate,
             JsonNode catalogField,
             String documentText
