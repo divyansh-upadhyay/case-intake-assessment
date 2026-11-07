@@ -62,6 +62,7 @@ public class FieldNormalizer {
 
             List<DateTimeFormatter> formats = List.of(
                     DateTimeFormatter.ISO_LOCAL_DATE,
+                    DateTimeFormatter.ofPattern("d/M/uuuu", Locale.ENGLISH),
                     DateTimeFormatter.ofPattern("d MMMM uuuu", Locale.ENGLISH),
                     DateTimeFormatter.ofPattern("d MMM uuuu", Locale.ENGLISH)
             );
@@ -159,4 +160,29 @@ public class FieldNormalizer {
                 .toLowerCase(Locale.ROOT)
                 .replaceAll("[\\s_-]+", "");
     }
+private static String normalizeDate(String input) {
+
+    if (input == null || input.isBlank()) {
+        return input;
+    }
+
+    String value = input.trim();
+
+    if (value.matches("\\d{2}/\\d{2}/\\d{4}")) {
+        try {
+            return java.time.LocalDate.parse(
+                value,
+                java.time.format.DateTimeFormatter
+                    .ofPattern("dd/MM/uuuu")
+                    .withResolverStyle(
+                        java.time.format.ResolverStyle.STRICT
+                    )
+            ).toString();
+        } catch (java.time.format.DateTimeParseException e) {
+            return value;
+        }
+    }
+
+    return value;
+}
 }

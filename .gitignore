@@ -7,3 +7,27 @@ target/
 .env.*
 !.env.example
 *.key
+
+# Reviewer-generated corrections
+reviewed-cases/
+
+# Reviewer-generated corrections
+reviewed-cases/
+
+# Reviewer-generated corrections
+reviewed-cases/
+
+# Reviewer-generated corrections
+reviewed-cases/
+
+# Local development backups
+*.backup
+*.bak
+*.before-*
+*.stable
+
+# Reviewer-generated data
+reviewed-cases/
+
+# Local frontend environment
+frontend/.env.local

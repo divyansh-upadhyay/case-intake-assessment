@@ -1,0 +1,118 @@
+{
+  "document_id" : "D05",
+  "catalog_version" : "1.0",
+  "model" : "ollama/qwen2.5:3b",
+  "flags" : [ ],
+  "cases" : [ {
+    "case_index" : 0,
+    "label" : "D.L.",
+    "fields" : {
+      "patient_initials" : {
+        "status" : "extracted",
+        "value" : "DL",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Initials: D.L.",
+          "start" : 266,
+          "end" : 280
+        } ]
+      },
+      "patient_age_years" : {
+        "status" : "extracted",
+        "value" : 54,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Age: 54",
+          "start" : 281,
+          "end" : 288
+        } ]
+      },
+      "patient_sex" : {
+        "status" : "extracted",
+        "value" : "male",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Sex: Male",
+          "start" : 289,
+          "end" : 298
+        } ]
+      },
+      "suspect_drug_name" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "suspect_drug_dose_value" : {
+        "status" : "extracted",
+        "value" : 300.0,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Current dose 300 mg orally once daily at night (titrated from 12.5 mg).",
+          "start" : 388,
+          "end" : 459
+        } ]
+      },
+      "suspect_drug_dose_unit" : {
+        "status" : "extracted",
+        "value" : "mg",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Current dose 300 mg orally once daily at night (titrated from 12.5 mg).",
+          "start" : 388,
+          "end" : 459
+        } ]
+      },
+      "suspect_drug_route" : {
+        "status" : "extracted",
+        "value" : "oral",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Current dose 300 mg orally once daily at night (titrated from 12.5 mg).",
+          "start" : 388,
+          "end" : 459
+        } ]
+      },
+      "suspect_drug_start_date" : {
+        "status" : "extracted",
+        "value" : "2026-02-09",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Date started: 9 February 2026",
+          "start" : 460,
+          "end" : 489
+        } ]
+      },
+      "event_terms" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "event_onset_date" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "event_outcome" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "seriousness_criteria" : {
+        "status" : "unknown",
+        "note" : "Value failed catalog validation"
+      },
+      "reporter_type" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "report_date" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "country" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "concomitant_drugs" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      }
+    }
+  } ]
+}

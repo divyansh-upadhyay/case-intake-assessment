@@ -1,0 +1,816 @@
+{
+  "documents": [
+    {
+      "document_id": "D01",
+      "fields": [
+        {
+          "case": 0,
+          "field": "patient_initials",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_age_years",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_sex",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_name",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_terms",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_onset_date",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_outcome",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "seriousness_criteria",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "reporter_type",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "report_date",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "country",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "concomitant_drugs",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "dose",
+          "points": 2.0,
+          "max": 2.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        }
+      ],
+      "notes": [],
+      "points": 13.0,
+      "max": 16.0,
+      "provenance": [
+        {
+          "case": 0,
+          "field": "patient_initials",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "patient_age_years",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "patient_sex",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_name",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_value",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_unit",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "event_terms",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "event_onset_date",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "event_outcome",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "reporter_type",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "report_date",
+          "ok": true,
+          "reason": "grounded"
+        }
+      ]
+    },
+    {
+      "document_id": "D02",
+      "fields": [
+        {
+          "case": 0,
+          "field": "patient_initials",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_age_years",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_sex",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_name",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_terms",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_onset_date",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_outcome",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "seriousness_criteria",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "reporter_type",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "report_date",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "country",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "concomitant_drugs",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "dose",
+          "points": 2.0,
+          "max": 2.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        }
+      ],
+      "notes": [],
+      "points": 8.0,
+      "max": 16.0,
+      "provenance": [
+        {
+          "case": 0,
+          "field": "patient_initials",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "patient_age_years",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_name",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_value",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_unit",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "concomitant_drugs",
+          "ok": true,
+          "reason": "grounded"
+        }
+      ]
+    },
+    {
+      "document_id": "D03",
+      "fields": [
+        {
+          "case": 0,
+          "field": "patient_initials",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "unknown as expected",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_age_years",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_sex",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_name",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_terms",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_onset_date",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_outcome",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "seriousness_criteria",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "reporter_type",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "report_date",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "country",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "concomitant_drugs",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "dose",
+          "points": 2.0,
+          "max": 2.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        }
+      ],
+      "notes": [],
+      "points": 10.0,
+      "max": 16.0,
+      "provenance": [
+        {
+          "case": 0,
+          "field": "patient_age_years",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "patient_sex",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_name",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_value",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_unit",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "event_outcome",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "seriousness_criteria",
+          "ok": true,
+          "reason": "grounded"
+        }
+      ]
+    },
+    {
+      "document_id": "D05",
+      "fields": [
+        {
+          "case": 0,
+          "field": "patient_initials",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_age_years",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "conflict flagged",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "patient_sex",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_name",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "points": 1.0,
+          "max": 1.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_terms",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_onset_date",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "event_outcome",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "seriousness_criteria",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "reporter_type",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "report_date",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "country",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "concomitant_drugs",
+          "points": 0.0,
+          "max": 1.0,
+          "verdict": "unknown",
+          "detail": "unknown; answer has a value",
+          "confidence": null
+        },
+        {
+          "case": 0,
+          "field": "dose",
+          "points": 2.0,
+          "max": 2.0,
+          "verdict": "correct",
+          "detail": "ok",
+          "confidence": null
+        }
+      ],
+      "notes": [],
+      "points": 7.0,
+      "max": 16.0,
+      "provenance": [
+        {
+          "case": 0,
+          "field": "patient_initials",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "patient_sex",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_value",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_dose_unit",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_route",
+          "ok": true,
+          "reason": "grounded"
+        },
+        {
+          "case": 0,
+          "field": "suspect_drug_start_date",
+          "ok": true,
+          "reason": "grounded"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "documents_scored": 4,
+    "field_points": 38.0,
+    "field_max": 64.0,
+    "field_percent": 59.4,
+    "wrong_high": 0,
+    "wrong_medium": 0,
+    "wrong_low": 0,
+    "unknown_where_answer_has_value": 26,
+    "case_count_errors": 0,
+    "provenance_checked": 36,
+    "provenance_grounded": 36,
+    "provenance_unchecked": 0,
+    "provenance_percent": 100.0,
+    "outputs_not_scorable": []
+  }
+}

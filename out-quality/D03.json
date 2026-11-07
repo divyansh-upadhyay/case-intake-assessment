@@ -1,0 +1,112 @@
+{
+  "document_id" : "D03",
+  "catalog_version" : "1.0",
+  "model" : "ollama/qwen2.5:3b",
+  "flags" : [ ],
+  "cases" : [ {
+    "case_index" : 0,
+    "label" : "Patient 45M",
+    "fields" : {
+      "patient_initials" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "patient_age_years" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "patient_sex" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "suspect_drug_name" : {
+        "status" : "extracted",
+        "value" : "ibuprofen",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "SUSPECT MEDICINE\nIbuprofen 400 mg tablets, one tablet by mouth three times a day with food, prescribed for mechanical low back pain.",
+          "start" : 338,
+          "end" : 470
+        } ]
+      },
+      "suspect_drug_dose_value" : {
+        "status" : "extracted",
+        "value" : 400.0,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "SUSPECT MEDICINE\nIbuprofen 400 mg tablets, one tablet by mouth three times a day with food, prescribed for mechanical low back pain.",
+          "start" : 338,
+          "end" : 470
+        } ]
+      },
+      "suspect_drug_dose_unit" : {
+        "status" : "extracted",
+        "value" : "mg",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "SUSPECT MEDICINE\nIbuprofen 400 mg tablets, one tablet by mouth three times a day with food, prescribed for mechanical low back pain.",
+          "start" : 338,
+          "end" : 470
+        } ]
+      },
+      "suspect_drug_route" : {
+        "status" : "extracted",
+        "value" : "oral",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "SUSPECT MEDICINE\nIbuprofen 400 mg tablets, one tablet by mouth three times a day with food, prescribed for mechanical low back pain.",
+          "start" : 338,
+          "end" : 470
+        } ]
+      },
+      "suspect_drug_start_date" : {
+        "status" : "unknown",
+        "note" : "Value failed catalog validation"
+      },
+      "event_terms" : {
+        "status" : "unknown",
+        "note" : "Combined event terms require separate verification"
+      },
+      "event_onset_date" : {
+        "status" : "unknown",
+        "note" : "Value failed catalog validation"
+      },
+      "event_outcome" : {
+        "status" : "extracted",
+        "value" : "recovered",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "OUTCOME\nRecovered. Seen in the practice on 13/05/2026, well, haemoglobin 118 g/L.",
+          "start" : 986,
+          "end" : 1067
+        } ]
+      },
+      "seriousness_criteria" : {
+        "status" : "extracted",
+        "value" : [ "hospitalization" ],
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "OUTCOME\nRecovered. Seen in the practice on 13/05/2026, well, haemoglobin 118 g/L.",
+          "start" : 986,
+          "end" : 1067
+        } ]
+      },
+      "reporter_type" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "report_date" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "country" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "concomitant_drugs" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      }
+    }
+  } ]
+}

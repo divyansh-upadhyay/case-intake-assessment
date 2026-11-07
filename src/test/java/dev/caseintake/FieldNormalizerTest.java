@@ -121,4 +121,22 @@ class FieldNormalizerTest {
         assertTrue(result.isNumber());
         assertEquals(40.0, result.asDouble());
     }
+@Test
+void shouldNormalizeSlashSeparatedDates() throws Exception {
+    ObjectMapper mapper = new ObjectMapper();
+
+    JsonNode field = mapper.readTree("""
+        {
+          "id": "event_onset_date",
+          "type": "date"
+        }
+        """);
+
+    JsonNode value = mapper.getNodeFactory()
+            .textNode("28/04/2026");
+
+    JsonNode normalized = FieldNormalizer.normalize(value, field);
+
+    assertEquals("2026-04-28", normalized.asText());
+}
 }
