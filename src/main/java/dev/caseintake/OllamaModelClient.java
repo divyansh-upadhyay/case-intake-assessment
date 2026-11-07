@@ -44,7 +44,7 @@ public class OllamaModelClient implements ModelClient {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
-                .timeout(Duration.ofMinutes(5))
+                .timeout(Duration.ofMinutes(15))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();

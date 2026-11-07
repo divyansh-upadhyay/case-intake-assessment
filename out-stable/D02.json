@@ -1,0 +1,118 @@
+{
+  "document_id" : "D02",
+  "catalog_version" : "1.0",
+  "model" : "ollama/qwen2.5:3b",
+  "flags" : [ ],
+  "cases" : [ {
+    "case_index" : 0,
+    "label" : "Mr J.T.O.",
+    "fields" : {
+      "patient_initials" : {
+        "status" : "extracted",
+        "value" : "JTO",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Patient: Mr J.T.O.",
+          "start" : 44,
+          "end" : 62
+        } ]
+      },
+      "patient_age_years" : {
+        "status" : "extracted",
+        "value" : 67,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Patient: Mr J.T.O.          Age: 67 years",
+          "start" : 44,
+          "end" : 85
+        } ]
+      },
+      "patient_sex" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "suspect_drug_name" : {
+        "status" : "extracted",
+        "value" : "atorvastatin",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Acute drug-induced liver injury, hepatocellular pattern, attributed to atorvastatin.",
+          "start" : 1144,
+          "end" : 1228
+        } ]
+      },
+      "suspect_drug_dose_value" : {
+        "status" : "extracted",
+        "value" : 40.0,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "suspect_drug_dose_unit" : {
+        "status" : "extracted",
+        "value" : "mg",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "suspect_drug_route" : {
+        "status" : "extracted",
+        "value" : "oral",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "suspect_drug_start_date" : {
+        "status" : "extracted",
+        "value" : "2025-11-20",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "event_terms" : {
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
+      },
+      "event_onset_date" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "event_outcome" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "seriousness_criteria" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "reporter_type" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "report_date" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "country" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "concomitant_drugs" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      }
+    }
+  } ]
+}

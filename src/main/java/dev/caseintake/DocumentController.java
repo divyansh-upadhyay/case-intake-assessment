@@ -7,7 +7,14 @@ import org.springframework.web.server.ResponseStatusException;
 import java.nio.file.*;
 import java.io.IOException;
 import java.util.*;
-@RestController @RequestMapping("/api") @CrossOrigin(origins="http://localhost:5173")
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+        "http://localhost:5176"
+})
 public class DocumentController {
  private final ObjectMapper mapper = new ObjectMapper();
  private JsonNode json(Path path){try {return mapper.readTree(Files.readString(path));}catch(IOException e){throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Missing file: "+path.getFileName());}}

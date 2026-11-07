@@ -1,0 +1,76 @@
+{
+  "document_id" : "D06",
+  "catalog_version" : "1.0",
+  "model" : "ollama/qwen2.5:3b",
+  "flags" : [ ],
+  "cases" : [ {
+    "case_index" : 0,
+    "label" : "zero",
+    "fields" : {
+      "patient_initials" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "patient_age_years" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "patient_sex" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "suspect_drug_name" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "suspect_drug_dose_value" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "suspect_drug_dose_unit" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "suspect_drug_route" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "suspect_drug_start_date" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "event_terms" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "event_onset_date" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "event_outcome" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "seriousness_criteria" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "reporter_type" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "report_date" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "country" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      },
+      "concomitant_drugs" : {
+        "status" : "unknown",
+        "note" : "Not established in source"
+      }
+    }
+  } ]
+}

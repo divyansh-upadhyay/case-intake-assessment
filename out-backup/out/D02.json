@@ -1,0 +1,136 @@
+{
+  "document_id" : "D02",
+  "catalog_version" : "1.0",
+  "model" : "ollama/qwen2.5:3b",
+  "flags" : [ ],
+  "cases" : [ {
+    "case_index" : 0,
+    "label" : "Mr J.T.O.",
+    "fields" : {
+      "patient_initials" : {
+        "status" : "extracted",
+        "value" : "JTO",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Patient: Mr J.T.O.          Age: 67 years          Sex: Male",
+          "start" : 44,
+          "end" : 104
+        } ]
+      },
+      "patient_age_years" : {
+        "status" : "extracted",
+        "value" : 67,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Age: 67 years",
+          "start" : 72,
+          "end" : 85
+        } ]
+      },
+      "patient_sex" : {
+        "status" : "extracted",
+        "value" : "male",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Sex: Male",
+          "start" : 95,
+          "end" : 104
+        } ]
+      },
+      "suspect_drug_name" : {
+        "status" : "extracted",
+        "value" : "atorvastatin",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "suspect_drug_dose_value" : {
+        "status" : "extracted",
+        "value" : 40.0,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "suspect_drug_dose_unit" : {
+        "status" : "extracted",
+        "value" : "mg",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "suspect_drug_route" : {
+        "status" : "extracted",
+        "value" : "oral",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "suspect_drug_start_date" : {
+        "status" : "extracted",
+        "value" : "2025-11-20",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Atorvastatin 40 mg orally once daily at night was started by his general practitioner on 20 November 2025 for primary prevention.",
+          "start" : 537,
+          "end" : 666
+        } ]
+      },
+      "event_terms" : {
+        "status" : "extracted",
+        "value" : [ "fatigue, dark urine and yellowing of the eyes" ],
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Two-week history of fatigue, dark urine and yellowing of the eyes.",
+          "start" : 282,
+          "end" : 348
+        } ]
+      },
+      "event_onset_date" : {
+        "status" : "unknown",
+        "note" : "Value failed catalog validation"
+      },
+      "event_outcome" : {
+        "status" : "unknown",
+        "note" : "Value failed catalog validation"
+      },
+      "seriousness_criteria" : {
+        "status" : "extracted",
+        "value" : [ "hospitalization" ],
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Supportive treatment. Liver enzymes trended down during admission: ALT 410 U/L on the day of discharge, bilirubin 62 micromol/L.",
+          "start" : 1378,
+          "end" : 1506
+        } ]
+      },
+      "reporter_type" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "report_date" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "country" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      },
+      "concomitant_drugs" : {
+        "status" : "unknown",
+        "note" : "Model did not return this field"
+      }
+    }
+  } ]
+}

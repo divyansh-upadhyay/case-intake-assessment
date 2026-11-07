@@ -1,20 +1,20 @@
 {
   "document_id" : "D01",
   "catalog_version" : "1.0",
-  "model" : "sample/provided-example-NOT-A-LIVE-EXTRACTION",
+  "model" : "ollama/qwen2.5:3b",
   "flags" : [ ],
   "cases" : [ {
     "case_index" : 0,
-    "label" : "Mrs M.K.",
+    "label" : "Patient M.K.",
     "fields" : {
       "patient_initials" : {
         "status" : "extracted",
         "value" : "MK",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "Mrs M.K.",
-          "start" : 276,
-          "end" : 284
+          "quote" : "54-year-old woman with no significant past medical history",
+          "start" : 288,
+          "end" : 346
         } ]
       },
       "patient_age_years" : {
@@ -22,9 +22,9 @@
         "value" : 54,
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "54-year-old",
+          "quote" : "54-year-old woman with no significant past medical history",
           "start" : 288,
-          "end" : 299
+          "end" : 346
         } ]
       },
       "patient_sex" : {
@@ -32,9 +32,9 @@
         "value" : "female",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "54-year-old woman",
+          "quote" : "54-year-old woman with no significant past medical history",
           "start" : 288,
-          "end" : 305
+          "end" : 346
         } ]
       },
       "suspect_drug_name" : {
@@ -42,8 +42,28 @@
         "value" : "amoxicillin",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "amoxicillin 500 mg capsules",
-          "start" : 373,
+          "quote" : "Mrs M.K. was prescribed amoxicillin 500 mg capsules",
+          "start" : 349,
+          "end" : 400
+        } ]
+      },
+      "suspect_drug_dose_value" : {
+        "status" : "extracted",
+        "value" : 500.0,
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Mrs M.K. was prescribed amoxicillin 500 mg capsules",
+          "start" : 349,
+          "end" : 400
+        } ]
+      },
+      "suspect_drug_dose_unit" : {
+        "status" : "extracted",
+        "value" : "mg",
+        "confidence" : "high",
+        "provenance" : [ {
+          "quote" : "Mrs M.K. was prescribed amoxicillin 500 mg capsules",
+          "start" : 349,
           "end" : 400
         } ]
       },
@@ -52,8 +72,8 @@
         "value" : "oral",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "one capsule orally three times daily",
-          "start" : 402,
+          "quote" : "Mrs M.K. was prescribed amoxicillin 500 mg capsules, one capsule orally three times daily",
+          "start" : 349,
           "end" : 438
         } ]
       },
@@ -62,19 +82,19 @@
         "value" : "2026-03-02",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "She took the first dose on 2 March 2026",
-          "start" : 481,
-          "end" : 520
+          "quote" : "Mrs M.K. was prescribed amoxicillin 500 mg capsules, one capsule orally three times daily, for a lower respiratory tract infection. She took the first dose on 2 March 2026.",
+          "start" : 349,
+          "end" : 521
         } ]
       },
       "event_terms" : {
         "status" : "extracted",
-        "value" : [ "rash", "angioedema" ],
+        "value" : [ "pruritic maculopapular rash", "swelling of the lips and periorbital area" ],
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "widespread pruritic maculopapular rash",
-          "start" : 555,
-          "end" : 593
+          "quote" : "On 4 March 2026 she developed a widespread pruritic maculopapular rash on the trunk and limbs, followed within hours by swelling of the lips and periorbital area.",
+          "start" : 523,
+          "end" : 685
         } ]
       },
       "event_onset_date" : {
@@ -82,9 +102,9 @@
         "value" : "2026-03-04",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "On 4 March 2026 she developed",
+          "quote" : "On 4 March 2026 she developed a widespread pruritic maculopapular rash on the trunk and limbs, followed within hours by swelling of the lips and periorbital area.",
           "start" : 523,
-          "end" : 552
+          "end" : 685
         } ]
       },
       "event_outcome" : {
@@ -92,30 +112,29 @@
         "value" : "recovered",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "resolved completely by 7 March 2026",
-          "start" : 901,
-          "end" : 936
+          "quote" : "The rash and the facial swelling resolved completely by 7 March 2026 and she was discharged home.",
+          "start" : 868,
+          "end" : 965
         } ]
       },
       "seriousness_criteria" : {
         "status" : "extracted",
         "value" : [ "hospitalization" ],
-        "confidence" : "medium",
+        "confidence" : "high",
         "provenance" : [ {
-          "quote" : "was admitted for observation",
-          "start" : 728,
-          "end" : 756
-        } ],
-        "note" : "Admitted for observation; counted as hospitalization."
+          "quote" : "She was treated with intravenous chlorphenamine and oral prednisolone.\n\nThe rash and the facial swelling resolved completely by 7 March 2026 and she was discharged home.",
+          "start" : 796,
+          "end" : 965
+        } ]
       },
       "reporter_type" : {
         "status" : "extracted",
         "value" : "physician",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "Consultant Dermatologist",
-          "start" : 1134,
-          "end" : 1158
+          "quote" : "In my opinion the reaction is probably related to amoxicillin.",
+          "start" : 1036,
+          "end" : 1098
         } ]
       },
       "report_date" : {
@@ -123,50 +142,18 @@
         "value" : "2026-03-10",
         "confidence" : "high",
         "provenance" : [ {
-          "quote" : "Date: 10 March 2026",
-          "start" : 68,
-          "end" : 87
+          "quote" : "I am writing to report a suspected adverse reaction in one of my patients, Mrs M.K., a 54-year-old woman with no significant past medical history.",
+          "start" : 201,
+          "end" : 347
         } ]
       },
       "country" : {
-        "status" : "extracted",
-        "value" : "GB",
-        "confidence" : "high",
-        "provenance" : [ {
-          "quote" : "Leeds, United Kingdom",
-          "start" : 45,
-          "end" : 66
-        } ]
+        "status" : "unknown",
+        "note" : "Evidence quote not found in source"
       },
       "concomitant_drugs" : {
-        "status" : "extracted",
-        "value" : [ ],
-        "confidence" : "high",
-        "provenance" : [ {
-          "quote" : "She was not taking any other medication",
-          "start" : 966,
-          "end" : 1005
-        } ]
-      },
-      "suspect_drug_dose_value" : {
-        "status" : "extracted",
-        "value" : 500,
-        "confidence" : "high",
-        "provenance" : [ {
-          "quote" : "amoxicillin 500 mg",
-          "start" : 373,
-          "end" : 391
-        } ]
-      },
-      "suspect_drug_dose_unit" : {
-        "status" : "extracted",
-        "value" : "mg",
-        "confidence" : "high",
-        "provenance" : [ {
-          "quote" : "amoxicillin 500 mg",
-          "start" : 373,
-          "end" : 391
-        } ]
+        "status" : "unknown",
+        "note" : "Model did not return this field"
       }
     }
   } ]
