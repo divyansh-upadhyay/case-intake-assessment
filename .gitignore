@@ -31,3 +31,14 @@ reviewed-cases/
 
 # Local frontend environment
 frontend/.env.local
+
+# Python virtual environment
+.venv/
+
+# Development backup directories
+backup-*/
+fixtures-backup-*/
+out-backup-*/
+
+# Temporary reports
+checker-*-report.json
