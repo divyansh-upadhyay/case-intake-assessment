@@ -89,7 +89,6 @@ public class ExtractionService {
                 """ + documentText;
 
         System.out.println("Processing " + documentId);
-        System.out.println("Calling local Ollama model...");
 
         String modelResponse;
 
@@ -129,7 +128,99 @@ public class ExtractionService {
         } else {
             System.out.println("Calling local Ollama model...");
             ModelClient model = new OllamaModelClient();
-            modelResponse = model.extract(prompt);
+            
+            String structuredPrompt = """
+                    You are a structured pharmacovigilance extraction engine.
+
+                    This is a data extraction task, NOT a summarization task.
+
+                    REQUIRED OUTPUT:
+                    Return one valid JSON object with a top-level "cases" array.
+
+                    Each case must contain:
+                    - label: patient identifier or descriptive label
+                    - fields: object keyed by the provided field catalog IDs
+
+                    For each field:
+                    - status: extracted, unknown, or conflict
+                    - value: supported value when extracted
+                    - confidence: high, medium, or low
+                    - provenance: exact quotes from the source document
+
+                    CRITICAL RULES:
+                    1. Never return clinicalCase, diagnosis, or key_points.
+                    2. Never invent patient names or missing values.
+                    3. Follow the field catalog and existing extraction instructions.
+                    4. Do not merge multiple symptoms into one event term.
+                    5. Every provenance quote must appear verbatim in the source.
+                    6. Return an empty cases array only when no reportable case exists.
+                    7. Return JSON only, without Markdown.
+                    8. Return ALL field IDs from the supplied catalog for every case.
+                    Never omit a catalog field.
+
+                    9. If a field is not present in the document, return:
+                    {"status":"unknown","note":"Not established in source"}
+
+                    10. Before returning unknown, search the entire document
+                    for direct and indirect evidence of that field.
+
+11. For string_list fields, return a JSON array.
+    Each distinct adverse event must be a separate array item.
+
+12. Never combine multiple symptoms into a single string.
+    For example:
+    ["fatigue", "dark urine", "yellowing of the eyes"]
+
+13. For coded and coded_multi fields, use only the exact
+    permitted option codes from the catalog.
+
+14. For dates, return YYYY-MM-DD.
+    Convert written dates into ISO format.
+
+15. If two sources within the same document provide
+    contradictory values for a field, return:
+    {"status":"conflict","note":"Conflicting values: ..."}
+
+16. Copy provenance quotes EXACTLY from the source.
+    Do not paraphrase, shorten with ellipses, or
+    reconstruct sentences.
+
+17. Do not return a value unless its supporting quote
+    appears in the document.
+
+18. Check the complete field catalog before producing
+    the final JSON response.
+
+                    """ + prompt;
+
+            modelResponse = model.extract(structuredPrompt);
+
+if (!hasValidCasesArray(modelResponse)) {
+    System.out.println("Invalid model structure; retrying once...");
+
+    String retryPrompt = structuredPrompt + """
+
+            IMPORTANT: Your previous response did not match the required format.
+
+            Return ONLY a JSON object with this structure:
+
+            {
+              "cases": [
+                {
+                  "label": "Patient",
+                  "fields": {}
+                }
+              ]
+            }
+
+            Populate fields using the field catalog and source document.
+            Every extracted field must include exact supporting evidence.
+            Do not invent information.
+            Do not return clinicalCase, diagnosis, or key_points.
+            """;
+
+    modelResponse = model.extract(retryPrompt);
+}
         }
 
         // Record the genuine model interaction before parsing it.
@@ -280,13 +371,20 @@ public class ExtractionService {
                 return unknown("Empty evidence quote");
             }
 
-            int start = documentText.indexOf(quote);
+            int[] span = findEvidenceSpan(documentText, quote);
 
-            if (start < 0) {
+            if (span == null) {
                 return unknown("Evidence quote not found in source");
             }
 
-            int end = start + quote.length();
+            int start = span[0];
+            int end = span[1];
+
+           // Always preserve the exact source text.
+            String matchedQuote = documentText.substring(start, end);
+            if (start < 0) {
+                return unknown("Evidence quote not found in source");
+            }
 
             // The schema uses Unicode code-point offsets.
             int startCodePoints = documentText.codePointCount(0, start);
@@ -294,7 +392,7 @@ public class ExtractionService {
 
             ObjectNode source = mapper.createObjectNode();
 
-            source.put("quote", quote);
+            source.put("quote", matchedQuote);
             source.put("start", startCodePoints);
             source.put("end", endCodePoints);
 
@@ -316,6 +414,51 @@ public class ExtractionService {
         output.set("provenance", provenance);
 
         return output;
+    }
+    private static int[] findEvidenceSpan(
+            String source,
+            String quote
+    ) {
+        if (source == null || quote == null || quote.isBlank()) {
+            return null;
+        }
+
+        int exact = source.indexOf(quote);
+
+        if (exact >= 0) {
+            return new int[]{
+                    exact,
+                    exact + quote.length()
+            };
+        }
+
+        String[] tokens = quote.trim().split("\\s+");
+
+        StringBuilder regex = new StringBuilder();
+
+        for (int i = 0; i < tokens.length; i++) {
+
+            if (i > 0) {
+                regex.append("\\s+");
+            }
+
+            regex.append(
+                    java.util.regex.Pattern.quote(tokens[i])
+            );
+        }
+
+        java.util.regex.Matcher matcher =
+                java.util.regex.Pattern.compile(regex.toString())
+                        .matcher(source);
+
+        if (matcher.find()) {
+            return new int[]{
+                    matcher.start(),
+                    matcher.end()
+            };
+        }
+
+        return null;
     }
 
     private static boolean validValue(
@@ -425,5 +568,32 @@ public class ExtractionService {
         node.put("note", reason);
 
         return node;
+    }
+    private static boolean hasValidCasesArray(String response) {
+        try {
+            JsonNode root = mapper.readTree(response);
+
+            if (root == null || !root.isObject()) {
+                return false;
+            }
+
+            JsonNode cases = root.path("cases");
+
+            if (!cases.isArray()) {
+                return false;
+            }
+
+            for (JsonNode caseNode : cases) {
+                if (!caseNode.isObject()
+                        || !caseNode.path("fields").isObject()) {
+                    return false;
+                }
+            }
+
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
